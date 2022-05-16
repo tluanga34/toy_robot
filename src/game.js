@@ -25,16 +25,17 @@ class Character {
   #movementListeners = [];
   #directionSequence = ["SOUTH", "EAST", "NORTH", "WEST"];
   #charRotation = {
-    SOUTH: "0deg",
-    EAST: "90deg",
-    NORTH: "180deg",
-    WEST: "270deg",
+    SOUTH: 0,
+    EAST: 90,
+    NORTH: 180,
+    WEST: 270,
   }
 
   constructor(posXY, dim, unit) {
 
     //SET INITIAL DIRECTION
     this.directionIndex = 0;
+    this.currentRotation = 0;
     this.posXY = posXY;
     this.movementOffset = dim;
     this.unit = unit;
@@ -48,14 +49,16 @@ class Character {
     const rotateClockWise = () => {
       //INCREASE THE DIRECTION INDEX
       this.directionIndex = (this.directionIndex == this.#directionSequence.length - 1) ? 0 : (this.directionIndex + 1);
-      gameUtils.setStyle(this.domEl, "transform", `rotate(${this.#charRotation[this.#directionSequence[this.directionIndex]]})`);
+      this.currentRotation += 90;
+      gameUtils.setStyle(this.domEl, "transform", `rotate(${this.currentRotation}deg)`);
       this.sendInfoToListeners();
     }
 
     const rotateCounterClockWise = () => {
       //DECREASE THE DIRECTION INDEX
       this.directionIndex = (this.directionIndex == 0) ? this.#directionSequence.length - 1 : this.directionIndex - 1;
-      gameUtils.setStyle(this.domEl, "transform", `rotate(${this.#charRotation[this.#directionSequence[this.directionIndex]]})`);
+      this.currentRotation -= 90;
+      gameUtils.setStyle(this.domEl, "transform", `rotate(${this.currentRotation}deg)`);
       this.sendInfoToListeners();
     }
 
@@ -113,7 +116,9 @@ class Character {
   respawn(posX, posY, direction) {
     this.posXY = [posX, posY];
     this.directionIndex = this.#directionSequence.indexOf(direction);
-    gameUtils.setStyle(this.domEl, "transform", `rotate(${this.#charRotation[this.#directionSequence[this.directionIndex]]})`);
+    this.currentRotation = this.#charRotation[this.#directionSequence[this.directionIndex]]
+
+    gameUtils.setStyle(this.domEl, "transform", `rotate(${this.currentRotation}deg)`);
 
     //MOTE THE CHARACTER WITH COMPUTED VALUE
     gameUtils.setStyle(this.domEl, "left", (this.posXY[0] * this.movementOffset) + "px");
