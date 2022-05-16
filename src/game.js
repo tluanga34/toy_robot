@@ -18,8 +18,9 @@ const gameUtils = {
   },
 }
 
-class Character {
 
+
+class Character {
 
   #movementListeners = [];
   #directionSequence = ["SOUTH", "EAST", "NORTH", "WEST"];
@@ -86,7 +87,6 @@ class Character {
     }
 
     document.addEventListener("keydown", function (event) {
-      // console.log(event.code);
       switch (event.code) {
         case "ArrowRight":
           rotateClockWise();
@@ -109,10 +109,11 @@ class Character {
     }
   }
 
-  moveTo(posX, posY, direction) {
+  respawn(posX, posY, direction) {
     this.posXY = [posX, posY];
     this.directionIndex = this.#directionSequence.indexOf(direction);
     gameUtils.setStyle(this.domEl, "transform", `rotate(${this.#charRotation[this.#directionSequence[this.directionIndex]]})`);
+
     //MOTE THE CHARACTER WITH COMPUTED VALUE
     gameUtils.setStyle(this.domEl, "left", (this.posXY[0] * this.movementOffset) + "px");
     gameUtils.setStyle(this.domEl, "top", (this.posXY[1] * this.movementOffset) + "px");
@@ -136,22 +137,22 @@ class Character {
 export default class Game {
 
   constructor(configProps = {}) {
-    const { canvasWidth = 500, canvasHeight = 500, unit = 5 } = configProps;
+    const { canvasSize = 500, unit = 5 } = configProps;
     this.config = {
-      canvasWidth,
-      canvasHeight,
+      canvasWidth: canvasSize,
+      canvasHeight: canvasSize,
       unit
     }
 
     this.domEls = {};
-
     this.characters = [];
-    this.characters.push(new Character([0, 0], (canvasWidth / unit)));
-
+    this.characters.push(new Character([0, 0], (this.config.canvasWidth / unit)));
   }
 
   //INITIATE THE GAME
   init(canvasElement, outputConsole) {
+
+    //CREATE NECESSARY DOM ELEMENTS
     this.domEls.canvasElement = canvasElement;
     this.domEls.canvasElement.classList.add("toygame_root");
     this.domEls.grid = gameUtils.createEl("div", 1, this.domEls.canvasElement, "grid")[0];
@@ -160,13 +161,11 @@ export default class Game {
     gameUtils.setStyle(this.domEls.canvasElement, "height", this.config.canvasHeight + "px");
     this.characters[0].addToStage(this.domEls.canvasElement);
 
-
     this.characters[0].addMovementListener((posXY, direction) => {
       outputConsole.updateX(posXY[0]);
       outputConsole.updateY(posXY[1]);
       outputConsole.updateDirection(direction);
     })
-
   }
 
   getCharacter() {

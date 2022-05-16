@@ -1,6 +1,5 @@
 const config = {
-  width: 500,
-  height: 500,
+  canvasSize: 500,
   console : {
     posX : "consolePosX",
     posY : "consolePosY",

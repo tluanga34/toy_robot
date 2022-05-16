@@ -3,6 +3,7 @@
     "http-server": "^14.1.0"
   },
   "scripts": {
-    "start" : "http-server ./src"
+    "start" : "http-server ./src",
+    "publish" : "aws s3 sync ./src s3://lalnuntoyrobot --acl public-read"
   }
 }

@@ -14,14 +14,16 @@ const outputConsole = {
 }
 
 
-
 let newGame = new Game(config);
 
 newGame.init(document.querySelector("#toyGame"), outputConsole);
 const gameCharacter = newGame.getCharacter();
 
+
+
 console.log("gameCharacter");
 console.log(gameCharacter);
+
 
 const inputConsole = {
   start() {
@@ -36,12 +38,11 @@ const inputConsole = {
     })
 
     formEl.addEventListener("submit", (event) => {
-      console.log("submit");
       event.preventDefault();
       event.stopPropagation();
 
       //MOVE THE CHARACTER
-      gameCharacter.moveTo(formEl[0].value, formEl[1].value, formEl[2].value);
+      gameCharacter.respawn(formEl[0].value, formEl[1].value, formEl[2].value);
 
       formEl[2].blur();
     })
