@@ -1,0 +1,103 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 100vh;
+  font: 14px/1.3em Arial;
+  margin: 0px;
+  padding: 0px;
+}
+
+.game-container {
+  background: linear-gradient(45deg, black, transparent);
+  height: 100vh;
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.place-form {
+  /* display: flex;
+  justify-content: space-between; */
+  margin-bottom: 20px;
+}
+
+.place-form .form-group {
+  padding: 5px 0px;
+}
+
+.place-form button,
+.place-form select {
+  height: 30px;
+  width: 100%;
+}
+
+.place-form button[type="submit"] {
+  margin-top: 10px;
+  background-color: #5ec419;
+  color: #fff;
+}
+
+.right-pannel {
+  width: 400px;
+  height: 100vh;
+  background-color: #e0e0e0;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.console-out {
+  background-color: #333;
+  color: #fff;
+  padding: 10px;
+}
+
+.right-pannel table th,
+.right-pannel table td {
+  text-align: left;
+  padding: 2px 10px;
+}
+
+.toygame_root {
+  height: 500px;
+  width: 500px;
+  background-color: red;
+  position: relative;
+  border: 27px solid #bfbfbf;
+  box-sizing:content-box;
+}
+
+.toygame_root .grid {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  position: relative;
+  z-index: 0;
+}
+
+.toygame_root .grid>div:nth-child(odd) {
+  background-color: #4c4c4c;
+}
+
+.toygame_root .grid>div:nth-child(even) {
+  background-color: #d2d2d2;
+}
+
+.toygame_root .character {
+  position: absolute;
+  z-index: 2;
+  /* background-color: blue; */
+  background-image: url("../images/FrogChracter.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  transition: transform 0.2s, left 0.2s, top 0.2s;
+}

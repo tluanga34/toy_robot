@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Toy Game</title>
+  <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+
+  <div class="game-container">
+    <div id="toyGame"></div>
+  </div>
+
+
+  <div class="right-pannel">
+    <div>
+      <h2>Keybings:</h2>
+      <table>
+        <tr>
+          <th>Left Arrow</th>
+          <td>Rotate Clockwise</td>
+        </tr>
+        <tr>
+          <th>Righ Arrow</th>
+          <td>Rotate Counter Clockwise</td>
+        </tr>
+        <tr>
+          <th>Spacebar</th>
+          <td>Move the character</td>
+        </tr>
+      </table>
+      <hr/>
+    </div>
+
+    <form class="place-form" id="positionStarter">
+      <div class="form-group">
+        <label>Position X</label>
+        <select>
+          <option>0</option>
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Position Y</label>
+        <select>
+          <option>0</option>
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Direction</label>
+        <select>
+          <option>NORTH</option>
+          <option>SOUTH</option>
+          <option>EAST</option>
+          <option>WEST</option>
+        </select>
+      </div>
+      <div>
+        <button type="submit">PLACE</button>
+      </div>
+    </form>
+
+    <div>
+
+      <div class="console-out">
+        <table>
+          <tr>
+            <th>Poxition X</th>
+            <td id="consolePosX"></td>
+          </tr>
+          <tr>
+            <th>Position Y</th>
+            <td id="consolePosY"></td>
+          </tr>
+          <tr>
+            <th>Direction</th>
+            <td id="consoleDirection"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- <script src="game.js"></script> -->
+  <script type="module" src="app.js"></script>
+
+</body>
+
+</html>
