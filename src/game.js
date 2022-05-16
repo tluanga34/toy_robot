@@ -31,12 +31,13 @@ class Character {
     WEST: "270deg",
   }
 
-  constructor(posXY, dim) {
+  constructor(posXY, dim, unit) {
 
     //SET INITIAL DIRECTION
     this.directionIndex = 0;
     this.posXY = posXY;
     this.movementOffset = dim;
+    this.unit = unit;
 
     this.domEl = gameUtils.createEl("div", 1, null, "character")[0];
     gameUtils.setStyle(this.domEl, "left", posXY[0] + "px");
@@ -65,10 +66,10 @@ class Character {
 
       //CALCULATE THE NEW POSITION
       if (currentDirection == "EAST") {
-        this.posXY = [(this.posXY[0] == 4) ? this.posXY[0] : ++this.posXY[0], this.posXY[1]]
+        this.posXY = [(this.posXY[0] == (this.unit - 1)) ? this.posXY[0] : ++this.posXY[0], this.posXY[1]]
       }
       else if (currentDirection == "NORTH") {
-        this.posXY = [this.posXY[0], (this.posXY[1] == 4) ? this.posXY[1] : ++this.posXY[1]]
+        this.posXY = [this.posXY[0], (this.posXY[1] == (this.unit - 1)) ? this.posXY[1] : ++this.posXY[1]]
       }
       else if (currentDirection == "WEST") {
         this.posXY = [(this.posXY[0] == 0) ? this.posXY[0] : --this.posXY[0], this.posXY[1]]
@@ -146,7 +147,7 @@ export default class Game {
 
     this.domEls = {};
     this.characters = [];
-    this.characters.push(new Character([0, 0], (this.config.canvasWidth / unit)));
+    this.characters.push(new Character([0, 0], (this.config.canvasWidth / this.config.unit), this.config.unit));
   }
 
   //INITIATE THE GAME
@@ -156,9 +157,12 @@ export default class Game {
     this.domEls.canvasElement = canvasElement;
     this.domEls.canvasElement.classList.add("toygame_root");
     this.domEls.grid = gameUtils.createEl("div", 1, this.domEls.canvasElement, "grid")[0];
+    gameUtils.setStyle(this.domEls.grid, "grid-template-columns", `repeat(${this.config.unit},1fr)`)
+    gameUtils.setStyle(this.domEls.grid, "grid-template-rows", `repeat(${this.config.unit},1fr)`)
     gameUtils.createEl("div", (this.config.unit * this.config.unit), this.domEls.grid);
     gameUtils.setStyle(this.domEls.canvasElement, "width", this.config.canvasWidth + "px");
     gameUtils.setStyle(this.domEls.canvasElement, "height", this.config.canvasHeight + "px");
+
     this.characters[0].addToStage(this.domEls.canvasElement);
 
     this.characters[0].addMovementListener((posXY, direction) => {
